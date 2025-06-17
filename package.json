@@ -1,0 +1,6 @@
+{
+  "name": "com.qstx.rdc_importer",
+  "description": "\u89e3\u6790RenderDoc\u5bfc\u51fa\u7684csv Mesh\u6587\u4ef6\uff0c\u5e76\u751f\u6210Unity\u5185\u90e8Mesh\u683c\u5f0f",
+  "version": "1.0.0",
+  "displayName": "Rdc Mesh Importer"
+}
