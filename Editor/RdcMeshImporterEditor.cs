@@ -17,6 +17,15 @@ namespace QSTX.RdcMeshImporter.Editor
         private SerializedProperty posXTagProp = null;
         private SerializedProperty posYTagProp = null;
         private SerializedProperty posZTagProp = null;
+
+        private SerializedProperty norXTagProp = null;
+        private SerializedProperty norYTagProp = null;
+        private SerializedProperty norZTagProp = null;
+
+        private SerializedProperty uv0XTagProp = null;
+        private SerializedProperty uv0YTagProp = null;
+        private SerializedProperty uv0ZTagProp = null;
+        private SerializedProperty uv0WTagProp = null;
         public override void OnEnable()
         {
             base.OnEnable();
@@ -28,12 +37,37 @@ namespace QSTX.RdcMeshImporter.Editor
             posXTagProp = serializedObject.FindProperty("posXTagIdx");
             posYTagProp = serializedObject.FindProperty("posYTagIdx");
             posZTagProp = serializedObject.FindProperty("posZTagIdx");
+
+            norXTagProp = serializedObject.FindProperty("norXTagIdx");
+            norYTagProp = serializedObject.FindProperty("norYTagIdx");
+            norZTagProp = serializedObject.FindProperty("norZTagIdx");
+
+            uv0XTagProp = serializedObject.FindProperty("uv0XTagIdx");
+            uv0YTagProp = serializedObject.FindProperty("uv0YTagIdx");
+            uv0ZTagProp = serializedObject.FindProperty("uv0ZTagIdx");
+            uv0WTagProp = serializedObject.FindProperty("uv0WTagIdx");
         }
         public override void OnInspectorGUI()
         {
+            EditorGUILayout.LabelField("Vertices");
             DrawTagPopup("position.x", posXTagProp);
             DrawTagPopup("position.y", posYTagProp);
             DrawTagPopup("position.z", posZTagProp);
+            EditorGUILayout.Space(6);
+
+            EditorGUILayout.LabelField("Normals");
+            DrawTagPopup("normal.x", norXTagProp);
+            DrawTagPopup("normal.y", norYTagProp);
+            DrawTagPopup("normal.z", norZTagProp);
+            EditorGUILayout.Space(6);
+
+            EditorGUILayout.LabelField("UV0s");
+            DrawTagPopup("uv0.x", uv0XTagProp);
+            DrawTagPopup("uv0.y", uv0YTagProp);
+            DrawTagPopup("uv0.z", uv0ZTagProp);
+            DrawTagPopup("uv0.w", uv0WTagProp);
+            EditorGUILayout.Space(6);
+
             serializedObject.ApplyModifiedProperties();
 
             base.ApplyRevertGUI();

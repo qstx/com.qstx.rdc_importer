@@ -20,6 +20,22 @@ namespace QSTX.RdcMeshImporter
         [SerializeField]
         private int posZTagIdx = 0;
 
+        [SerializeField]
+        private int norXTagIdx = 0;
+        [SerializeField]
+        private int norYTagIdx = 0;
+        [SerializeField]
+        private int norZTagIdx = 0;
+
+        [SerializeField]
+        private int uv0XTagIdx = 0;
+        [SerializeField]
+        private int uv0YTagIdx = 0;
+        [SerializeField]
+        private int uv0ZTagIdx = 0;
+        [SerializeField]
+        private int uv0WTagIdx = 0;
+
         private int[] indices = null;
         private float[][] datas = null;
         private int vertexNum = 0;
@@ -30,7 +46,6 @@ namespace QSTX.RdcMeshImporter
             GetTags();
             GetDatas(allLines);
             GetMesh(ctx);
-            
         }
         private void GetTags()
         {
@@ -85,7 +100,31 @@ namespace QSTX.RdcMeshImporter
                 vertices[i].z = (posZTagIdx < 2 ? posZTagIdx : datas[posZTagIdx - 2][i]);
             }
             mesh.SetVertices(vertices);
+
+            Vector3[] normals = new Vector3[vertexNum];
+            for (int i = 0; i < vertexNum; ++i)
+            {
+                normals[i].x = (norXTagIdx < 2 ? norXTagIdx : datas[norXTagIdx - 2][i]);
+                normals[i].y = (norYTagIdx < 2 ? norYTagIdx : datas[norYTagIdx - 2][i]);
+                normals[i].z = (norZTagIdx < 2 ? norZTagIdx : datas[norZTagIdx - 2][i]);
+            }
+            mesh.SetNormals(normals);
+
+
+            Vector4[] uv0 = new Vector4[vertexNum];
+            for (int i = 0; i < vertexNum; ++i)
+            {
+                uv0[i].x = (uv0XTagIdx < 2 ? uv0XTagIdx : datas[uv0XTagIdx - 2][i]);
+                uv0[i].y = (uv0YTagIdx < 2 ? uv0YTagIdx : datas[uv0YTagIdx - 2][i]);
+                uv0[i].z = (uv0ZTagIdx < 2 ? uv0ZTagIdx : datas[uv0ZTagIdx - 2][i]);
+                uv0[i].w = (uv0WTagIdx < 2 ? uv0WTagIdx : datas[uv0WTagIdx - 2][i]);
+            }
+            mesh.SetUVs(0, uv0);
+
             mesh.SetIndices(indices,MeshTopology.Triangles,0);
+
+            mesh.RecalculateTangents();
+
             ctx.AddObjectToAsset("mesh", mesh);
             ctx.SetMainObject(mesh);
         }
