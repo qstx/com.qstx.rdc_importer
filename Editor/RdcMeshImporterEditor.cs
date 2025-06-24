@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace QSTX.RdcMeshImporter.Editor
 {
-    [CanEditMultipleObjects]
     [CustomEditor(typeof(RdcMeshImporter))]
     public class RdcMeshImporterEditor : ScriptedImporterEditor
     {
